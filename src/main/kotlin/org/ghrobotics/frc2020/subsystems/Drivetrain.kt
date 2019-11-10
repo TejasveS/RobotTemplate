@@ -8,18 +8,20 @@
 
 package org.ghrobotics.frc2020.subsystems
 
+import com.kauailabs.navx.frc.AHRS
+import edu.wpi.first.wpilibj.SPI
 import edu.wpi.first.wpilibj.controller.RamseteController
 import edu.wpi.first.wpilibj.geometry.Rotation2d
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry
 import org.ghrobotics.frc2020.Constants
 import org.ghrobotics.frc2020.commands.TeleopDriveCommand
-import org.ghrobotics.lib.mathematics.units.Meter
-import org.ghrobotics.lib.mathematics.units.SIUnit
+import org.ghrobotics.lib.mathematics.units.*
 import org.ghrobotics.lib.mathematics.units.nativeunit.DefaultNativeUnitModel
 import org.ghrobotics.lib.motors.ctre.FalconSRX
 import org.ghrobotics.lib.physics.MotorCharacterization
 import org.ghrobotics.lib.subsystems.drive.FalconWestCoastDrivetrain
+import org.ghrobotics.lib.utils.asSource
 
 /**
  * Represents the drivetrain of the robot.
@@ -35,7 +37,8 @@ object Drivetrain : FalconWestCoastDrivetrain() {
     override val odometry = DifferentialDriveOdometry(kinematics)
 
     // Gyro
-    override val gyro = { Rotation2d() }
+    val navx = AHRS(SPI.Port.kMXP)
+    override val gyro = navx.asSource()
 
     // Motor characterization
     override val leftCharacterization = MotorCharacterization<Meter>(SIUnit(0.0), SIUnit(0.0), SIUnit(0.0))
@@ -58,7 +61,24 @@ object Drivetrain : FalconWestCoastDrivetrain() {
         rightMotor.outputInverted = true
         rightSlave1.outputInverted = true
 
+        leftMotor.configCurrentLimit(true, FalconSRX.CurrentLimitConfig(
+                90.amps,
+                0.5.seconds,
+                38.amps
+        ))
+
+        rightMotor.configCurrentLimit(true, FalconSRX.CurrentLimitConfig(
+                90.amps, //peak current limit
+                0.5.seconds, //peak current limit duration
+                38.amps //continuous current limit
+        ))
+
         // Set the default command
         defaultCommand = TeleopDriveCommand()
+    }
+
+    fun drive(left: Double, right: Double){
+        leftMotor.setDutyCycle(left) //sends it voltage between 0 and 12
+        rightMotor.setDutyCycle(right)
     }
 }

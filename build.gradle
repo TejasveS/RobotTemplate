@@ -55,14 +55,15 @@ dependencies {
     compile "org.ghrobotics.FalconLibrary:core:01aae7b"
     compile "org.ghrobotics.FalconLibrary:wpi:01aae7b"
     compile "org.ghrobotics.FalconLibrary:vendorCTRE:01aae7b"
+    compile "org.ghrobotics.FalconLibrary:vendorNAVX:01aae7b"
 }
 
-spotless {
-    kotlin {
-        ktlint().userData(['insert_final_newline': 'true'])
-        licenseHeaderFile "LicenseHeader.txt"
-    }
-}
+//spotless {
+//    kotlin {
+//        ktlint().userData(['insert_final_newline': 'true'])
+//        licenseHeaderFile "LicenseHeader.txt"
+//    }
+//}
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
 // in order to make them all available at runtime. Also adding the manifest so WPILib
