@@ -23,10 +23,10 @@ object Constants {
      * Constants for the drivetrain.
      */
     object Drivetrain {
-        const val kLeftMasterId = 3
-        const val kLeftSlave1Id = 1
-        const val kRightMasterId = 2
-        const val kRightSlave1Id = 4
+        const val kLeftMasterId = 1 // 3
+        const val kLeftSlave1Id = 2 // 1
+        const val kRightMasterId = 3 // 2
+        const val kRightSlave1Id = 4 // 4
 
         val kWheelRadius = 3.inches
         val kTrackWidth = 27.75.inches

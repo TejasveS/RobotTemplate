@@ -19,3 +19,4 @@ detekt.html
 
 .vscode/
 *.code-workspace
+bin/

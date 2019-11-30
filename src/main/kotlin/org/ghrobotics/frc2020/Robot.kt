@@ -9,15 +9,17 @@
 package org.ghrobotics.frc2020
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import org.ghrobotics.frc2020.subsystems.Drivetrain
 import org.ghrobotics.lib.wrappers.FalconTimedRobot
 import org.ghrobotics.frc2020.commands.TeeterTotterCommand
+import org.ghrobotics.frc2020.subsystems.TeeterTotter
+
 
 /**
  * Main robot class.
  */
 object Robot : FalconTimedRobot() {
-
     // Constructor of the Robot class.
     init {
         // Add the drivetrain to the subsystem handler
@@ -33,14 +35,14 @@ object Robot : FalconTimedRobot() {
     // Runs once when autonomous period starts
     override fun autonomousInit() {
         Drivetrain.navx.reset()
-        printNavx()
-        TeeterTotterCommand().withTimeout(10.0).schedule()
+//        VoltageDriveCommand().withTimeout(3.0).schedule()
+        TeeterTotterCommand().withTimeout(30.0).schedule()
     }
 
     // Runs once when teleop period starts
     override fun teleopInit() {
-        Drivetrain.navx.reset()
-        printNavx()
+      //  Drivetrain.navx.reset()
+//        TeeterTotterCommand().withTimeout(30.0).schedule()
     }
 
     // Runs once when robot is disabled
@@ -48,18 +50,18 @@ object Robot : FalconTimedRobot() {
 
     // Runs every 20 ms when robot is on
     override fun robotPeriodic() {
+        SmartDashboard.putNumber("NavxPitch", Drivetrain.navx.pitch.toDouble())
+        SmartDashboard.putNumber("NavxRoll", Drivetrain.navx.roll.toDouble())
+        SmartDashboard.putNumber("NavxYaw", Drivetrain.navx.yaw.toDouble())
+        printNavx()
         Shuffleboard.update()
     }
 
     // Runs every 20 ms when autonomous is enabled
-    override fun autonomousPeriodic() {
-        printNavx()
-    }
+    override fun autonomousPeriodic() {}
 
     // Runs every 20 ms when teleop is enabled
-    override fun teleopPeriodic() {
-        printNavx()
-    }
+    override fun teleopPeriodic() {}
 
     // Runs every 20 ms when robot is disabled
     override fun disabledPeriodic() {}

@@ -9,9 +9,9 @@
 package org.ghrobotics.frc2020.subsystems
 
 import com.kauailabs.navx.frc.AHRS
+import edu.wpi.first.wpilibj.PIDOutput
 import edu.wpi.first.wpilibj.SPI
 import edu.wpi.first.wpilibj.controller.RamseteController
-import edu.wpi.first.wpilibj.geometry.Rotation2d
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry
 import org.ghrobotics.frc2020.Constants
@@ -75,10 +75,5 @@ object Drivetrain : FalconWestCoastDrivetrain() {
 
         // Set the default command
         defaultCommand = TeleopDriveCommand()
-    }
-
-    fun drive(left: Double, right: Double){
-        leftMotor.setDutyCycle(left) //sends it voltage between 0 and 12
-        rightMotor.setDutyCycle(right)
     }
 }

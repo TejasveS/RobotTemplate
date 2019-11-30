@@ -1,5 +1,6 @@
 package org.ghrobotics.frc2020.commands
 
+import org.ghrobotics.frc2020.subsystems.Drivetrain2
 import org.ghrobotics.lib.commands.FalconCommand
 import org.ghrobotics.lib.mathematics.units.SIUnit
 import org.ghrobotics.lib.mathematics.units.derived.acceleration
@@ -19,13 +20,12 @@ class VoltageDriveCommand: FalconCommand(Drivetrain2) {
                 0.meters.acceleration, SIUnit(0.0)
         )
     }
-        override fun end(interrupted: Boolean) {
-            Drivetrain2.setNeutral()
-        }
 
-        override fun isFinished(): Boolean {
-            return super.isFinished()
-        }
+    override fun end(interrupted: Boolean) {
+        Drivetrain2.setNeutral()
     }
 
-//autonoumous init constantvoltagedrivecommand().withtimeout(seconds: 3.0).schedule()
+    override fun isFinished(): Boolean {
+        return super.isFinished()
+    }
+}

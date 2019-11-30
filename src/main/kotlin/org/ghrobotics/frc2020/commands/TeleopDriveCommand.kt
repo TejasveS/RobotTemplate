@@ -22,7 +22,7 @@ import org.ghrobotics.lib.wrappers.hid.kA
  */
 class TeleopDriveCommand : FalconCommand(Drivetrain) {
     override fun execute() {
-        Drivetrain.curvatureDrive(-xSource(), cSource(), qSource())
+        Drivetrain.curvatureDrive(xSource(), cSource(), qSource())
     }
 
     companion object {

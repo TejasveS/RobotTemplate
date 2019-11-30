@@ -1,19 +1,13 @@
-package org.ghrobotics.frc2020.commands
+package org.ghrobotics.frc2020.subsystems
 
 import edu.wpi.first.wpilibj.controller.RamseteController
 import edu.wpi.first.wpilibj.geometry.Rotation2d
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry
-import org.ghrobotics.lib.commands.FalconCommand
+import org.ghrobotics.frc2020.Constants
 import org.ghrobotics.lib.mathematics.units.Meter
-import org.ghrobotics.lib.mathematics.units.SIUnit
-import org.ghrobotics.lib.mathematics.units.derived.acceleration
-import org.ghrobotics.lib.mathematics.units.derived.velocity
 import org.ghrobotics.lib.mathematics.units.inches
-import org.ghrobotics.lib.mathematics.units.meters
 import org.ghrobotics.lib.mathematics.units.nativeunit.NativeUnitLengthModel
-import org.ghrobotics.lib.mathematics.units.nativeunit.NativeUnitVelocity
-import org.ghrobotics.lib.motors.ctre.FalconSPX
 import org.ghrobotics.lib.motors.ctre.FalconSRX
 import org.ghrobotics.lib.physics.MotorCharacterization
 import org.ghrobotics.lib.subsystems.drive.FalconWestCoastDrivetrain
@@ -45,10 +39,10 @@ object Drivetrain2 : FalconWestCoastDrivetrain() {
     // 1440 ticks per wheel rotation
     // wheel radius is 3 inches
     val nativeUnitModel = NativeUnitLengthModel(1440.nativeUnits1, 3.inches)
-    override val leftMotor = FalconSRX(1, nativeUnitModel)
-    override val rightMotor = FalconSRX(3, nativeUnitModel)
-    private val leftslave1 = FalconSRX(2, nativeUnitModel)
-    private val rightslave1 = FalconSRX(4, nativeUnitModel)
+    override val leftMotor = FalconSRX(Constants.Drivetrain.kLeftMasterId, nativeUnitModel)
+    override val rightMotor = FalconSRX(Constants.Drivetrain.kRightMasterId, nativeUnitModel)
+    private val leftslave1 = FalconSRX(Constants.Drivetrain.kLeftSlave1Id, nativeUnitModel)
+    private val rightslave1 = FalconSRX(Constants.Drivetrain.kRightSlave1Id, nativeUnitModel)
 
     init {
         leftslave1.follow(leftMotor)
